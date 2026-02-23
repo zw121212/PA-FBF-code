@@ -76,7 +76,7 @@ for idx_test in range(N1):
     SAD.dt = 1/100
     SAD.Nt = K
 
-    x_ensemble_sample = model.calc_ensemble(ensemble_size, measurement, SAD, device)# [T-1,ensemble_size,dim_u]
+    x_ensemble_sample = model.calc_ensemble(ensemble_size,m_0, measurement,SAD, device)# [T-1,ensemble_size,dim_u]
     x_rmse = torch.sqrt(((U_test[idx_test, 1:] - x_ensemble_sample.mean(1)) ** 2).mean())
 
     rmse_list.append(x_rmse)
@@ -335,7 +335,7 @@ for l in range(1):
 
     # --- 图 2: Prediction ---
     fig, ax = plt.subplots(figsize=(6, 4))
-    im1 = ax.imshow(pred, extent=[0, 1.5, 0, 1], aspect='auto', origin='lower')
+    im1 = ax.imshow(pred, extent=[0, 1.5, 0, 1], aspect='auto', origin='lower',vmax=2,vmin=0)
     ax.axvline(x=1.0, linestyle='--', color='k', linewidth=1)
     ax.set_title(f"{model_name}  Pred")
     ax.set_xlabel("Time t")
