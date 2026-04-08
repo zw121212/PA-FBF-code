@@ -23,7 +23,12 @@ The code is used to conduct numerical experiments on several benchmark problems,
 
 ├── test_2d.py            # Testing & visualization: 2D nonlinear system
 ├── test_diffusion.py     # Testing & visualization: Stochastic Advection–Diffusion Model
-└── test_heat.py          # Testing & visualization: Stochastic Heat Equation
+├──  test_heat.py          # Testing & visualization: Stochastic Heat Equation
+
+├── Data/                 # Datasets used in experiments
+└── PI/                   # Pre-trained model parameters
+
+
 ```
 
 ---
@@ -68,7 +73,7 @@ Each training script:
 
 ### 2. Testing / Reproducing Results
 
-To reproduce numerical results using the provided trained models, run:
+To reproduce numerical results using the provided datasets and pre-trained models (stored in Data/ and PI/), run:
 
 ```bash
 python test_2d.py
@@ -100,9 +105,9 @@ Matplotlib
 
 - All experiments are script-based and reproducible.
 - Training and testing are fully separated.
-- All benchmark problems share the same core implementation.
-- Results can be reproduced by running the corresponding `train_*` and `test_*` scripts.
-
+- Datasets are provided in the `Data/` directory.
+- Pre-trained model parameters are provided in the `PI/` directory.
+- Results can be reproduced by directly running the corresponding `test_*` scripts.
 ---
 
 ## Notes
@@ -114,5 +119,5 @@ Matplotlib
 
 ## Remarks
 
-This repository is organized to support algorithmic clarity, reproducible numerical experiments, and consistent evaluation across multiple PDE problems.
+- The repository includes both data and pre-trained models to facilitate direct reproduction of all reported results.
 
