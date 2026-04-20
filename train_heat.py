@@ -48,18 +48,18 @@ arch_params = {"Tx_units": 64, "Tx_layers": 6, "Ty_units": 64, "Ty_layers": 6,
                "A_net_units": 64, "A_net_layers": 6, "B_net_units": 64, "B_net_layers": 6}
 model = Flow_based_Bayesian_Filter(arch_params, dim_u, dim_y, loader_train, loader_test, device)
 
-num_epochs = 1000
+num_epochs_warm = 1000
 lr = 5e-4; momentum = 0.9; decay = 0.99; final_decay = 5e-2
 trainable_params = model.params_NFs + model.A_net_params + model.B_net_params + \
                            [model.Px, model.Py, model.C, model.D]
 optimizer = optim.Adam(trainable_params, lr=lr, betas=(momentum, decay), eps=1e-7)
-gamma = (final_decay)**(1./num_epochs)
+gamma = (final_decay)**(1./num_epochs_warm)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=gamma)
 
 model_dir2 = "PI/Heat_equation/r2={}/PI_FBF_sensor={}_sigma={}_dimu={}".format(r2, N, sigma, dim_u)
 os.makedirs(model_dir2, exist_ok=True)
-pbar1 = tqdm(total=num_epochs//m, desc="Steps")
-for epoch in range(num_epochs):
+pbar1 = tqdm(total=num_epochs_warm//m, desc="Steps")
+for epoch in range(num_epochs_warm):
     loss1 = 0
     for batch_idx, (u, y) in enumerate(loader_train):
         batch_idx += 1
