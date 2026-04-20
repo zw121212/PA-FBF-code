@@ -57,11 +57,11 @@ train_loader = torch.utils.data.DataLoader(TensorDataset(x_train, y_train), batc
                                            shuffle=True, drop_last=True)
 test_loader = torch.utils.data.DataLoader(TensorDataset(x_test, y_test), batch_size=batch_size_test,
                                            shuffle=True, drop_last=True)
-n_epochs = 1000
+n_epochs_warm = 1000
 arch_params = {"Tx_units": 64, "Tx_layers": 6, "Ty_units": 64, "Ty_layers": 6,
                "A_net_units": 64, "A_net_layers": 6, "B_net_units": 64, "B_net_layers": 6}
 model = Flow_based_Bayesian_Filter(arch_params, dim_x, dim_y, train_loader, test_loader, device)
-model.FBF_compile(n_epochs)
+model.FBF_compile(n_epochs_warm)
 
 model_dir2 = "PI/synthetic nonlinear/PI-FBF_r2={}_q={}".format(r2, q2)
 os.makedirs(model_dir2, exist_ok=True)
